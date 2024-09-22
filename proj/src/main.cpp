@@ -1,15 +1,13 @@
 #include <iostream>
 #include <toml.hpp>
+#include <archive.h>
+#include <archive_entry.h>
 using namespace std;
 int main(){
     try {   
         auto config = toml::parse("config.toml");
-
-        // Получаем имя хоста из TOML файла
-        std::string hostname = toml::find<std::string>(config, "prompt", "hostname");
-
-        // Выводим имя хоста в приглашении
-        std::cout << hostname << "$ ";
+        string hostname = toml::find<std::string>(config, "prompt", "hostname");
+        cout << hostname << "$ ";
     }
     catch (const toml::syntax_error& err) {
         std::cerr << "Ошибка синтаксиса в конфигурационном файле: " << err.what() << std::endl;
