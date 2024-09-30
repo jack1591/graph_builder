@@ -4,6 +4,7 @@
 #include <archive.h>
 #include <archive_entry.h>
 #include <filesystem>
+#include <fstream>
 using namespace std;
 string command, tek_path,root_path;
 vector <string> files_in_dir;
@@ -139,7 +140,51 @@ string cd(const char * root_path,string archive_path,string next){
     return archive_path;
 
 }
+
+void find(const char * root_path, string path){
+    struct archive* archive;
+    struct archive_entry* entry;
+    int result;
+    // Создаем объект архива для чтения
+    archive = archive_read_new();
+    archive_read_support_format_all(archive); // Поддержка всех форматов
+
+    // Открываем архив для чтения
+    result = archive_read_open_filename(archive, root_path, 32768);
+    if (result != ARCHIVE_OK) {
+        cout<<"Archive opening error: "<<archive_error_string(archive);
+        archive_read_free(archive); // Освобождаем ресурсы
+        return;
+    }
+
+    // Чтение заголовков архива и данных файлов
     
+    while ((result = archive_read_next_header(archive, &entry)) == ARCHIVE_OK){
+        tek_path = archive_entry_pathname(entry);
+        if (tek_path.find(path)!=std::string::npos){
+            cout<<tek_path<<endl;
+            archive_read_data_skip(archive);
+        }
+    }
+
+    // Закрытие архива
+    archive_read_close(archive); // Закрываем архив
+    archive_read_free(archive);  // Освобождаем ресурсы    
+}
+
+void uniq(string root_path, string archive_path,string name_file){
+    cout<<"name of file: "<<archive_path+name_file<<endl;
+    for (auto c:files_in_dir)
+        if (c==name_file && c.substr(c.size()-4,4)==".txt"){
+            fstream fin(name_file);
+            //cout<<"proverka\n";
+            string s="";
+            while (fin>>s)
+                cout<<s<<endl;
+            fin.close();
+        }
+}
+
 int main(){
     
     try {   
@@ -151,19 +196,30 @@ int main(){
         add_files(root_path.c_str(),tek_path);
 
         while (true){
-            cout << hostname << "$ ";
+            cout << "$ ";
             cin>>command;
             if (command=="exit")
                 break;
-            if (command=="ls")
+            else if (command=="ls")
                 ls();
-            if (command=="cd"){
+            else if (command=="cd"){
                 string s;
                 cin>>s;
                 tek_path=cd(root_path.c_str(),tek_path,s);
             }
-            if (command=="whoami")
-            cout<<hostname<<endl;
+            else if (command=="whoami")
+                    cout<<hostname<<endl;
+            else if (command=="find"){
+                    string path;
+                    cin>>path;
+                    find(root_path.c_str(),path);
+                }
+            else if (command=="uniq"){
+                    string name_of_file;
+                    cin>>name_of_file;
+                    uniq(root_path, tek_path, name_of_file);
+            }
+            else cout<<endl;
         }
     }
     catch (const toml::syntax_error& err) {
