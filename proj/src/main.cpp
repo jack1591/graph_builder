@@ -9,6 +9,56 @@
 using namespace std;
 string command, tek_path,root_path;
 vector <string> files_in_dir;
+int f;
+struct tests{
+    int number;
+    void choosing(){
+        cout<<"Here are the numbers of tests:\n";
+        cout<<"1 - cd first/my-proj/2/\n";
+        cout<<"2 - cd fourth/\n";
+        cout<<"3 - cd first/abc2.txt\n";
+        cout<<"4 - cd first/my-proj/..\n";
+        cout<<"5 - ls\n";
+        cout<<"6 - whoami\n";
+        cout<<"7 - exit\n";
+        cout<<"8 - find qwerty\n";
+        cout<<"9 - find my-p\n";
+        cout<<"10 - uniq abc2.txt\n";
+        cout<<"Enter the number(1-10): ";
+        cin>>number;
+    }
+
+    string process(){
+        string s;
+        switch(number){
+            case 1: s = "cd first/my-proj/2/";
+                    break;
+            case 2: s = "cd fourth/";
+                    break;
+            case 3: s = "cd first/abc2.txt";
+                    break;
+            case 4: s = "cd first/my-proj/..";
+                    break;
+            case 5: s = "ls";
+                    break;
+            case 6: s = "whoami";
+                    break;
+            case 7: s = "exit";
+                    break;
+            case 8: s = "find qwerty";
+                    break;
+            case 9: s = "find my-p";
+                    break;
+            case 10: s = "uniq abc2.txt";
+                     break;
+            default: cout<<"Number is out of range!";
+                     break;
+        }
+        cout<<"$ "<<s<<endl;
+        return s;
+    }
+    
+};
 
 int count_slash(string str){
     int count = 0;
@@ -192,7 +242,6 @@ void uniq(const char * root_path, string archive_path,string name_file){
     while (archive_read_next_header(archive, &entry) == ARCHIVE_OK){
         count_path = archive_entry_pathname(entry);
         if (count_path.find(archive_path+name_file)!=std::string::npos){
-            //cout<<"Name of file: "<<tek_path<<endl;
             const void *buff;
             size_t size;
             la_int64_t offset;
@@ -200,7 +249,6 @@ void uniq(const char * root_path, string archive_path,string name_file){
 
             while ((result = archive_read_data_block(archive, &buff, &size, &offset)) == ARCHIVE_OK) {
                 string s(reinterpret_cast<const char *>(buff));
-                cout<<s<<endl;
                 s+=" ";
                 string word = "";
                 for (auto c:s)
@@ -228,18 +276,26 @@ void uniq(const char * root_path, string archive_path,string name_file){
 }
 
 int main(){
-    
     try {   
         auto config = toml::parse("config.toml");
         string hostname = toml::find<string>(config, "prompt", "hostname");
         root_path = toml::find<string>(config,"filesystem", "archive_path");
-        cout<<root_path<<endl;
-
+        
         add_files(root_path.c_str(),tek_path);
-
+        
+        tests test;
+        test.choosing();
+        command=test.process();
+        
+        f=0;
         while (true){
-            cout << "$ ";
-            getline(cin,command);
+            if (f>0){
+                cout<<"$ ";
+                if (f==1)
+                    getline(cin,command);
+                getline(cin,command);
+            }
+            
             if (command.substr(0,4)=="exit")
                 break;
             else if (command.substr(0,2)=="ls")
@@ -271,13 +327,15 @@ int main(){
                     }
             }
             else cout<<"Unknown command\n";
+            if (f<2)
+                f++;
         }
     }
     catch (const toml::syntax_error& err) {
-        std::cerr << "Ошибка синтаксиса в конфигурационном файле: " << err.what() << endl;
+        std::cerr << "Syntap error in config file " << err.what() << endl;
     }
     catch (const std::out_of_range& err) {
-        std::cerr << "Ошибка: параметр не найден в конфигурационном файле" << endl;
+        std::cerr << "Error: argiment is not found" << endl;
     }
 
     return 0;
