@@ -5,6 +5,7 @@
 #include <archive_entry.h>
 #include <filesystem>
 #include <fstream>
+#include <set>
 using namespace std;
 string command, tek_path,root_path;
 vector <string> files_in_dir;
@@ -32,7 +33,7 @@ void add_files(const char * root_path,string archive_path){
     // Открываем архив для чтения
     result = archive_read_open_filename(archive, root_path, 32768);
     if (result != ARCHIVE_OK) {
-        cout<<"Archive opening error: "<<archive_error_string(archive);
+        cout<<"Archive opening error: "<<archive_error_string(archive)<<endl;
         archive_read_free(archive); // Освобождаем ресурсы
         return;
     }
@@ -57,7 +58,7 @@ void add_files(const char * root_path,string archive_path){
             if (count_slash(tek_path)==count_archive_slash || (count_slash(tek_path)==count_archive_slash+1 && tek_path[tek_path.size()-1]=='/')){
                 string s = "";
                 tek_path='/'+tek_path;
-                for (int i = tek_path.size()-1;i>0;i--)
+                for (unsigned int i = tek_path.size()-1;i>0;i--)
                     if (tek_path[i]=='/' && i!=tek_path.size()-1)
                         break;
                     else s=tek_path[i]+s;
@@ -88,8 +89,7 @@ string cd(const char * root_path,string archive_path,string next){
 
     while (next!=""){
         string s = "";
-        int j;
-
+        unsigned int j;
         for (j = 0;j<next.size();j++)
             if (next[j]=='/')
             break;
@@ -136,7 +136,6 @@ string cd(const char * root_path,string archive_path,string next){
         }
         next = next.substr(j+1,next.size()-j);
     }
-
     return archive_path;
 
 }
@@ -152,17 +151,17 @@ void find(const char * root_path, string path){
     // Открываем архив для чтения
     result = archive_read_open_filename(archive, root_path, 32768);
     if (result != ARCHIVE_OK) {
-        cout<<"Archive opening error: "<<archive_error_string(archive);
+        cout<<"Archive opening error: "<<archive_error_string(archive)<<endl;
         archive_read_free(archive); // Освобождаем ресурсы
         return;
     }
 
     // Чтение заголовков архива и данных файлов
-    
+    string count_path;
     while ((result = archive_read_next_header(archive, &entry)) == ARCHIVE_OK){
-        tek_path = archive_entry_pathname(entry);
-        if (tek_path.find(path)!=std::string::npos){
-            cout<<tek_path<<endl;
+        count_path = archive_entry_pathname(entry);
+        if (count_path.find(path)!=std::string::npos){
+            cout<<count_path<<endl;
             archive_read_data_skip(archive);
         }
     }
@@ -172,17 +171,60 @@ void find(const char * root_path, string path){
     archive_read_free(archive);  // Освобождаем ресурсы    
 }
 
-void uniq(string root_path, string archive_path,string name_file){
-    cout<<"name of file: "<<archive_path+name_file<<endl;
-    for (auto c:files_in_dir)
-        if (c==name_file && c.substr(c.size()-4,4)==".txt"){
-            fstream fin(name_file);
-            //cout<<"proverka\n";
-            string s="";
-            while (fin>>s)
+void uniq(const char * root_path, string archive_path,string name_file){
+    struct archive* archive;
+    struct archive_entry* entry;
+    int result;
+    // Создаем объект архива для чтения
+    archive = archive_read_new();
+    archive_read_support_format_all(archive); // Поддержка всех форматов
+
+    // Открываем архив для чтения
+    result = archive_read_open_filename(archive, root_path, 32768);
+    if (result != ARCHIVE_OK) {
+        cout<<"Archive opening error: "<<archive_error_string(archive)<<endl;
+        archive_read_free(archive); // Освобождаем ресурсы
+        return;
+    }
+
+    // Чтение заголовков архива и данных файлов
+    string count_path;
+    while (archive_read_next_header(archive, &entry) == ARCHIVE_OK){
+        count_path = archive_entry_pathname(entry);
+        if (count_path.find(archive_path+name_file)!=std::string::npos){
+            //cout<<"Name of file: "<<tek_path<<endl;
+            const void *buff;
+            size_t size;
+            la_int64_t offset;
+            set<string> words_in_file;
+
+            while ((result = archive_read_data_block(archive, &buff, &size, &offset)) == ARCHIVE_OK) {
+                string s(reinterpret_cast<const char *>(buff));
                 cout<<s<<endl;
-            fin.close();
+                s+=" ";
+                string word = "";
+                for (auto c:s)
+                    if (c==' ' || c=='\n' || c=='\r'){
+                        if (word!="" && words_in_file.find(word)==words_in_file.end()){
+                            words_in_file.insert(word);
+                            cout<<word<<endl;
+                        }
+                        word="";
+                    }
+                    else word+=c;
+            }
+
+            if (result != ARCHIVE_EOF && result != ARCHIVE_OK) {
+                std::cerr << "Ошибка при чтении файла: " << archive_error_string(archive) << endl;
+            }
+            break;
         }
+    }
+
+    // Закрытие архива
+    archive_read_close(archive); // Закрываем архив
+    archive_read_free(archive); 
+
 }
 
 int main(){
@@ -197,140 +239,46 @@ int main(){
 
         while (true){
             cout << "$ ";
-            cin>>command;
-            if (command=="exit")
+            getline(cin,command);
+            if (command.substr(0,4)=="exit")
                 break;
-            else if (command=="ls")
+            else if (command.substr(0,2)=="ls")
                 ls();
-            else if (command=="cd"){
-                string s;
-                cin>>s;
-                tek_path=cd(root_path.c_str(),tek_path,s);
-            }
-            else if (command=="whoami")
-                    cout<<hostname<<endl;
-            else if (command=="find"){
-                    string path;
-                    cin>>path;
-                    find(root_path.c_str(),path);
+            else if (command.substr(0,2)=="cd"){
+                if (command.size()<4)
+                    cout<<"name is empty!\n";
+                else {
+                    string s = command.substr(3,command.size()-2);
+                    tek_path=cd(root_path.c_str(),tek_path,s);
                 }
-            else if (command=="uniq"){
-                    string name_of_file;
-                    cin>>name_of_file;
-                    uniq(root_path, tek_path, name_of_file);
             }
-            else cout<<endl;
+            else if (command.substr(0,6)=="whoami")
+                    cout<<hostname<<endl;
+            else if (command.substr(0,4)=="find"){
+                    if (command.size()<6)
+                        cout<<"name is empty!\n";
+                    else {
+                        string path = command.substr(5,command.size()-4);
+                        find(root_path.c_str(),path);
+                    }
+            }
+            else if (command.substr(0,4)=="uniq"){
+                    if (command.size()<6)
+                        cout<<"name is empty!\n";
+                    else {
+                        string name_of_file = command.substr(5,command.size()-4);
+                        uniq(root_path.c_str(), tek_path, name_of_file);
+                    }
+            }
+            else cout<<"Unknown command\n";
         }
     }
     catch (const toml::syntax_error& err) {
-        std::cerr << "Ошибка синтаксиса в конфигурационном файле: " << err.what() << std::endl;
+        std::cerr << "Ошибка синтаксиса в конфигурационном файле: " << err.what() << endl;
     }
     catch (const std::out_of_range& err) {
-        std::cerr << "Ошибка: параметр не найден в конфигурационном файле" << std::endl;
+        std::cerr << "Ошибка: параметр не найден в конфигурационном файле" << endl;
     }
 
     return 0;
 }
-
-
-/*    
-    struct archive* archive;
-    struct archive_entry* entry;
-    int result;
-
-    // Создаем объект архива для чтения
-    archive = archive_read_new();
-    archive_read_support_format_all(archive); // Поддержка всех форматов
-
-    result = archive_read_open_filename(archive, root_path, 32768);
-    if (result != ARCHIVE_OK) {
-        cout<<"Archive opening error: "<<archive_error_string(archive)<<endl;
-        archive_read_free(archive); // Освобождаем ресурсы
-        //return;
-    }
-
-    string tek_path="";
-    while ((result = archive_read_next_header(archive, &entry)) == ARCHIVE_OK) {
-        tek_path = archive_entry_pathname(entry);
-        if (tek_path.find(archive_path) || archive_path==""){
-            if (tek_path==archive_path+next)
-                return archive_path+next;
-        }
-
-        archive_read_data_skip(archive); // Пропускаем данные, можно и читать их
-    }
-   
-    archive_read_close(archive); // Закрываем архив
-    archive_read_free(archive);  // Освобождаем ресурсы
-
-    return "-1";
-    */
-
-
-/*
-void ls(const char * root_path,string archive_path) {
-    struct archive* archive;
-    struct archive_entry* entry;
-    int result;
-
-    // Создаем объект архива для чтения
-    archive = archive_read_new();
-    archive_read_support_format_all(archive); // Поддержка всех форматов
-
-    // Открываем архив для чтения
-    result = archive_read_open_filename(archive, root_path, 32768);
-    if (result != ARCHIVE_OK) {
-        cout<<"Archive opening error: "<<archive_error_string(archive);
-        archive_read_free(archive); // Освобождаем ресурсы
-        return;
-    }
-
-    // Чтение заголовков архива и данных файлов
-
-    string tek_path="";
-    while ((result = archive_read_next_header(archive, &entry)) == ARCHIVE_OK) {
-        tek_path = archive_entry_pathname(entry);
-        
-        if (tek_path==archive_path || archive_path==""){
-            int count=0;
-            for (auto c:tek_path)
-                if (c=='/')
-                    count++;
-
-            if (count==0 || (count==1 && tek_path[tek_path.size()-1]=='/'))
-            cout<<archive_entry_pathname(entry)<<" ";
-            break;
-        }
-
-        archive_read_data_skip(archive); // Пропускаем данные, можно и читать их
-    }
-    
-    while ((result = archive_read_next_header(archive, &entry)) == ARCHIVE_OK){
-        tek_path = archive_entry_pathname(entry);
-        if (tek_path.find(archive_path)==0 || archive_path==""){            
-            int count=0;
-            for (auto c:tek_path)
-                if (c=='/')
-                    count++;
-            if (archive_path[archive_path.size()-1]=='/')
-            count--;
-            if (count==0 || (count==1 && tek_path[tek_path.size()-1]=='/'))
-            cout<<tek_path<<" ";
-
-            archive_read_data_skip(archive);
-        }
-        else break;
-    }
-    
-    cout<<endl;
-
-    if (result != ARCHIVE_EOF && archive_path=="") {
-        // Если произошла ошибка, кроме конца файла
-        printf("Error reading archive: %s\n", archive_error_string(archive));
-    }
-
-    // Закрытие архива
-    archive_read_close(archive); // Закрываем архив
-    archive_read_free(archive);  // Освобождаем ресурсы
-}
-*/

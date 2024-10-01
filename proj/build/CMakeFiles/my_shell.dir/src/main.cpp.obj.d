@@ -555,4 +555,7 @@ CMakeFiles/my_shell.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/commdlg.h C:/msys64/mingw64/include/stralign.h \
  C:/msys64/mingw64/include/sec_api/stralign_s.h \
  C:/msys64/mingw64/include/winsvc.h C:/msys64/mingw64/include/mcx.h \
- C:/msys64/mingw64/include/imm.h
+ C:/msys64/mingw64/include/imm.h C:/msys64/mingw64/include/c++/13.2.0/set \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tree.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_set.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multiset.h
