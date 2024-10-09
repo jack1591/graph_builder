@@ -283,19 +283,22 @@ int main(){
         
         add_files(root_path.c_str(),tek_path);
         
+        /*
         tests test;
         test.choosing();
         command=test.process();
-        
+        */
         f=0;
         while (true){
+            cout<<"$ ";
+            getline(cin,command);
+            /*
             if (f>0){
-                cout<<"$ ";
                 if (f==1)
                     getline(cin,command);
                 getline(cin,command);
             }
-            
+            */
             if (command.substr(0,4)=="exit")
                 break;
             else if (command.substr(0,2)=="ls")
@@ -327,8 +330,8 @@ int main(){
                     }
             }
             else cout<<"Unknown command\n";
-            if (f<2)
-                f++;
+            //if (f<2)
+            //    f++;
         }
     }
     catch (const toml::syntax_error& err) {
