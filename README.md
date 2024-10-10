@@ -8,10 +8,15 @@ git clone https://github.com/jack1591/conf-upr.git
 ```
 ## Запуск программы
 1. Перейти в папку build в терминале
-2. Ввести следующие команды:
+2. Ввести следующие команды:  
+При первом запуске программы:
 ```
+cmake -G "MinGW Makefiles" ..
 cmake ..
 mingw32-make
+```  
+Запуск .exe файла:
+```
 ./my_shell.exe
 ```
 
