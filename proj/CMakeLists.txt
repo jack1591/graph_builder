@@ -9,14 +9,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Указываем путь к заголовочным файлам toml11
-include_directories(${CMAKE_SOURCE_DIR}/toml11/include)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
 
 # Указываем каталог с исходным кодом
 add_executable(my_shell src/main.cpp)
 
 # Линкуем библиотеку libarchive
-link_directories(c/msys64/mingw64/lib)
+link_directories(${CMAKE_SOURCE_DIR}/liba)
 target_link_libraries(my_shell archive stdc++fs)
 
 # Включение расширенной диагностики

@@ -136,15 +136,15 @@ CMakeFiles/my_shell.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/ostream.tcc \
  C:/msys64/mingw64/include/c++/13.2.0/istream \
  C:/msys64/mingw64/include/c++/13.2.0/bits/istream.tcc \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/color.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/color_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/color_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/color_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/version.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/comments.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/comments_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/version.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/color.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/color_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/color_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/color_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/version.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/comments.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/comments_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/version.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/iterator \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stream_iterator.h \
  C:/msys64/mingw64/include/c++/13.2.0/utility \
@@ -154,10 +154,10 @@ CMakeFiles/my_shell.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_bvector.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/vector.tcc \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/comments_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/comments_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/compat.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/version.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/comments_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/comments_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/compat.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/version.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/algorithm \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_algo.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/algorithmfwd.h \
@@ -191,25 +191,25 @@ CMakeFiles/my_shell.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/cstdint \
  C:/msys64/mingw64/include/c++/13.2.0/optional \
  C:/msys64/mingw64/include/c++/13.2.0/bits/enable_special_members.h \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/context.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/error_info.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/error_info_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/source_location.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/source_location_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/region.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/region_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/location.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/location_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/result.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/compat.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/exception.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/location_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/location_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/utility.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/result.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/traits.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/from.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/into.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/context.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/error_info.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/error_info_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/source_location.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/source_location_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/region.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/region_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/location.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/location_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/result.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/compat.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/exception.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/location_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/location_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/utility.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/result.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/traits.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/from.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/into.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/array \
  C:/msys64/mingw64/include/c++/13.2.0/compare \
  C:/msys64/mingw64/include/c++/13.2.0/chrono \
@@ -223,11 +223,11 @@ CMakeFiles/my_shell.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/forward_list.tcc \
  C:/msys64/mingw64/include/c++/13.2.0/sstream \
  C:/msys64/mingw64/include/c++/13.2.0/bits/sstream.tcc \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/region_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/region_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/source_location_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/source_location_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/color.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/region_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/region_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/source_location_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/source_location_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/color.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/iomanip \
  C:/msys64/mingw64/include/c++/13.2.0/locale \
  C:/msys64/mingw64/include/c++/13.2.0/bits/locale_facets_nonio.h \
@@ -237,69 +237,69 @@ CMakeFiles/my_shell.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/locale_facets_nonio.tcc \
  C:/msys64/mingw64/include/c++/13.2.0/bits/locale_conv.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/quoted_string.h \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/utility.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/error_info_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/error_info_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/spec.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/conversion.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/find.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/get.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/types.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/comments.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/format.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/format_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/format_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/format_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/ordered_map.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/value.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/color.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/datetime.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/datetime_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/datetime_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/datetime_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/region.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/source_location.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/storage.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/value_t.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/value_t_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/compat.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/format.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/value_t_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/value_t_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/utility.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/error_info_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/error_info_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/spec.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/conversion.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/find.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/get.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/types.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/comments.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/format.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/format_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/format_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/format_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/ordered_map.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/value.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/color.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/datetime.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/datetime_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/datetime_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/datetime_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/region.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/source_location.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/storage.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/value_t.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/value_t_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/compat.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/format.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/value_t_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/value_t_fwd.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/unordered_map \
  C:/msys64/mingw64/include/c++/13.2.0/bits/unordered_map.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/hashtable.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/hashtable_policy.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/node_handle.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/erase_if.h \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/datetime.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/error_info.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/exception.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/find.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/format.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/from.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/get.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/into.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/literal.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/literal_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/types.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/literal_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/literal_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/parser.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/context.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/scanner.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/scanner_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/scanner_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/scanner_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/skip.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/syntax.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/syntax_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/scanner.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/spec.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/impl/syntax_impl.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/fwd/syntax_fwd.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/scanner.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/spec.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/datetime.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/error_info.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/exception.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/find.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/format.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/from.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/get.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/into.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/literal.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/literal_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/types.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/literal_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/literal_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/parser.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/context.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/scanner.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/scanner_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/scanner_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/scanner_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/skip.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/syntax.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/syntax_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/scanner.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/spec.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/impl/syntax_impl.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/fwd/syntax_fwd.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/scanner.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/spec.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/fstream \
  C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/basic_file.h \
  C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++io.h \
@@ -325,27 +325,27 @@ CMakeFiles/my_shell.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/codecvt \
  C:/msys64/mingw64/include/c++/13.2.0/bits/fs_dir.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/fs_ops.h \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/syntax.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/location.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/ordered_map.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/parser.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/region.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/result.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/scanner.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/serializer.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/utility.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/skip.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/source_location.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/spec.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/storage.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/syntax.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/traits.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/types.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/utility.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/value.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/value_t.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/version.hpp \
- C:/Users/jackt/conf_upr/proj/toml11/include/toml11/visit.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/syntax.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/location.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/ordered_map.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/parser.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/region.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/result.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/scanner.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/serializer.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/utility.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/skip.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/source_location.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/spec.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/storage.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/syntax.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/traits.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/types.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/utility.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/value.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/value_t.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/version.hpp \
+ C:/Users/jackt/conf_upr/proj/include/toml11/visit.hpp \
  C:/msys64/mingw64/include/archive.h C:/msys64/mingw64/include/sys/stat.h \
  C:/msys64/mingw64/include/io.h C:/msys64/mingw64/include/inttypes.h \
  C:/msys64/mingw64/include/archive_entry.h \
