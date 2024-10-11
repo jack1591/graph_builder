@@ -254,10 +254,8 @@ int main(){
                 if (command.size()<4)
                     cout<<"name is empty!\n";
                 else {
-                    cout<<"start "<<root_path<<endl;
                     string s = command.substr(3,command.size()-2);
                     tek_path=cd(root_path.c_str(),tek_path,s);
-                    cout<<tek_path<<endl;
                 }
             }
             else if (command.substr(0,6)=="whoami")
