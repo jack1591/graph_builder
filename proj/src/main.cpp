@@ -7,58 +7,9 @@
 #include <fstream>
 #include <set>
 using namespace std;
-string command, tek_path,root_path;
+string command, tek_path,root_path,hostname;
 vector <string> files_in_dir;
 int f;
-struct tests{
-    int number;
-    void choosing(){
-        cout<<"Here are the numbers of tests:\n";
-        cout<<"1 - cd first/my-proj/2/\n";
-        cout<<"2 - cd fourth/\n";
-        cout<<"3 - cd first/abc2.txt\n";
-        cout<<"4 - cd first/my-proj/..\n";
-        cout<<"5 - ls\n";
-        cout<<"6 - whoami\n";
-        cout<<"7 - exit\n";
-        cout<<"8 - find qwerty\n";
-        cout<<"9 - find my-p\n";
-        cout<<"10 - uniq abc2.txt\n";
-        cout<<"Enter the number(1-10): ";
-        cin>>number;
-    }
-
-    string process(){
-        string s;
-        switch(number){
-            case 1: s = "cd first/my-proj/2/";
-                    break;
-            case 2: s = "cd fourth/";
-                    break;
-            case 3: s = "cd first/abc2.txt";
-                    break;
-            case 4: s = "cd first/my-proj/..";
-                    break;
-            case 5: s = "ls";
-                    break;
-            case 6: s = "whoami";
-                    break;
-            case 7: s = "exit";
-                    break;
-            case 8: s = "find qwerty";
-                    break;
-            case 9: s = "find my-p";
-                    break;
-            case 10: s = "uniq abc2.txt";
-                     break;
-            default: cout<<"Number is out of range!";
-                     break;
-        }
-        cout<<"$ "<<s<<endl;
-        return s;
-    }
-    
-};
 
 int count_slash(string str){
     int count = 0;
@@ -187,13 +138,13 @@ string cd(const char * root_path,string archive_path,string next){
         next = next.substr(j+1,next.size()-j);
     }
     return archive_path;
-
 }
 
-void find(const char * root_path, string path){
+vector<string> find(const char * root_path, string path){
     struct archive* archive;
     struct archive_entry* entry;
     int result;
+    vector<string> names;
     // Создаем объект архива для чтения
     archive = archive_read_new();
     archive_read_support_format_all(archive); // Поддержка всех форматов
@@ -203,7 +154,7 @@ void find(const char * root_path, string path){
     if (result != ARCHIVE_OK) {
         cout<<"Archive opening error: "<<archive_error_string(archive)<<endl;
         archive_read_free(archive); // Освобождаем ресурсы
-        return;
+        //return;
     }
 
     // Чтение заголовков архива и данных файлов
@@ -211,6 +162,7 @@ void find(const char * root_path, string path){
     while ((result = archive_read_next_header(archive, &entry)) == ARCHIVE_OK){
         count_path = archive_entry_pathname(entry);
         if (count_path.find(path)!=std::string::npos){
+            names.push_back(count_path);
             cout<<count_path<<endl;
             archive_read_data_skip(archive);
         }
@@ -218,10 +170,11 @@ void find(const char * root_path, string path){
 
     // Закрытие архива
     archive_read_close(archive); // Закрываем архив
-    archive_read_free(archive);  // Освобождаем ресурсы    
+    archive_read_free(archive);  // Освобождаем ресурсы
+    return names;    
 }
 
-void uniq(const char * root_path, string archive_path,string name_file){
+set<string> uniq(const char * root_path, string archive_path,string name_file){
     struct archive* archive;
     struct archive_entry* entry;
     int result;
@@ -234,19 +187,19 @@ void uniq(const char * root_path, string archive_path,string name_file){
     if (result != ARCHIVE_OK) {
         cout<<"Archive opening error: "<<archive_error_string(archive)<<endl;
         archive_read_free(archive); // Освобождаем ресурсы
-        return;
+        //return;
     }
 
     // Чтение заголовков архива и данных файлов
     string count_path;
+    set<string> words_in_file;
     while (archive_read_next_header(archive, &entry) == ARCHIVE_OK){
         count_path = archive_entry_pathname(entry);
         if (count_path.find(archive_path+name_file)!=std::string::npos){
             const void *buff;
             size_t size;
             la_int64_t offset;
-            set<string> words_in_file;
-
+            
             while ((result = archive_read_data_block(archive, &buff, &size, &offset)) == ARCHIVE_OK) {
                 string s(reinterpret_cast<const char *>(buff));
                 s+=" ";
@@ -273,32 +226,26 @@ void uniq(const char * root_path, string archive_path,string name_file){
     archive_read_close(archive); // Закрываем архив
     archive_read_free(archive); 
 
+    return words_in_file;
 }
 
+string whoami(){
+    return hostname;
+}
+
+#ifndef UNIT_TEST
 int main(){
     try {   
         auto config = toml::parse("config.toml");
-        string hostname = toml::find<string>(config, "prompt", "hostname");
+        hostname = toml::find<string>(config, "prompt", "hostname");
         root_path = toml::find<string>(config,"filesystem", "archive_path");
         
         add_files(root_path.c_str(),tek_path);
         
-        /*
-        tests test;
-        test.choosing();
-        command=test.process();
-        */
         f=0;
         while (true){
             cout<<"$ ";
             getline(cin,command);
-            /*
-            if (f>0){
-                if (f==1)
-                    getline(cin,command);
-                getline(cin,command);
-            }
-            */
             if (command.substr(0,4)=="exit")
                 break;
             else if (command.substr(0,2)=="ls")
@@ -307,18 +254,20 @@ int main(){
                 if (command.size()<4)
                     cout<<"name is empty!\n";
                 else {
+                    cout<<"start "<<root_path<<endl;
                     string s = command.substr(3,command.size()-2);
                     tek_path=cd(root_path.c_str(),tek_path,s);
+                    cout<<tek_path<<endl;
                 }
             }
             else if (command.substr(0,6)=="whoami")
-                    cout<<hostname<<endl;
+                    cout<<whoami()<<endl;
             else if (command.substr(0,4)=="find"){
                     if (command.size()<6)
                         cout<<"name is empty!\n";
                     else {
                         string path = command.substr(5,command.size()-4);
-                        find(root_path.c_str(),path);
+                        vector<string> tek_names = find(root_path.c_str(),path);
                     }
             }
             else if (command.substr(0,4)=="uniq"){
@@ -326,12 +275,11 @@ int main(){
                         cout<<"name is empty!\n";
                     else {
                         string name_of_file = command.substr(5,command.size()-4);
-                        uniq(root_path.c_str(), tek_path, name_of_file);
+                        set<string> exampl;
+                        exampl = uniq(root_path.c_str(), tek_path, name_of_file);
                     }
             }
             else cout<<"Unknown command\n";
-            //if (f<2)
-            //    f++;
         }
     }
     catch (const toml::syntax_error& err) {
@@ -343,3 +291,4 @@ int main(){
 
     return 0;
 }
+#endif
