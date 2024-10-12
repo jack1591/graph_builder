@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/googletest/googletest/include"
+                "${workspaceFolder}/googtest/googletest/include"
             ],
             "defines": [
                 "_DEBUG",
