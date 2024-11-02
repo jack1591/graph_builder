@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <unordered_map>
 using namespace std;
 string git_url, name_pack, graph_depth, graph_path, mer_path;
@@ -144,6 +145,36 @@ void buildDependencyGraph(Dependency rootDep, int depth, std::unordered_map<std:
     }
 }
 
+string generateMermaidCode(unordered_map<std::string, pair<vector<Dependency>,int>>& graph){
+    string mermaid = "graph TD\n";
+    for (auto versh:graph)
+        for (auto c:versh.second.first)
+            mermaid+="    " + versh.first + " --> " + c.groupId + ":" + c.artifactId + ":" + c.version + "\n";
+    return mermaid;
+}
+
+void saveToFile(string content, string filename) {
+    ofstream file(filename);
+    file << content;
+    file.close();
+    /*
+    if (file.is_open()) {
+        file << content;
+        file.close();
+    } else {
+        std::cerr << "Failed to open file for writing: " << filename << std::endl;
+    }
+    */
+}
+
+void generatePngFromMermaid(string inputFile, string outputFile) {
+    std::string command = "mmdc -i " + inputFile + " -o " + outputFile;
+    int result = system(command.c_str());
+    if (result != 0) {
+        std::cerr << "Failed to generate PNG from Mermaid" << std::endl;
+    }
+}
+
 int main(int argc,char* argv[]) {
     mer_path = argv[1];
     name_pack = argv[2];
@@ -196,5 +227,12 @@ int main(int argc,char* argv[]) {
         }
     }
     
+    string mermaid_code = generateMermaidCode(dependencyGraph);
+    cout<<mermaid_code<<endl;
+    std::string inputFile = "graph.mmd";
+    std::string outputFile = "graph.png";
+    saveToFile(mermaid_code, inputFile);
+    generatePngFromMermaid(inputFile, outputFile);
+    cout<<"png generated\n";
     return 0;
 }
