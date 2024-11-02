@@ -1,0 +1,3 @@
+C:/Users/jackt/conf_upr/second/build/CMakeFiles/my_pack.dir
+C:/Users/jackt/conf_upr/second/build/CMakeFiles/edit_cache.dir
+C:/Users/jackt/conf_upr/second/build/CMakeFiles/rebuild_cache.dir
