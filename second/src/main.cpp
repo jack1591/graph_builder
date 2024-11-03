@@ -7,7 +7,7 @@
 #include <fstream>
 #include <unordered_map>
 using namespace std;
-string git_url, name_pack, graph_depth, graph_path, mer_path;
+string repo_url, name_pack, graph_depth, graph_path, mer_path,url;
 
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
     ((std::string*)userp)->append((char*)contents, size * nmemb);
@@ -50,12 +50,11 @@ vector<Dependency> parseXML(string xmlContent) {
         pos = endPos + 1;
     }
     tag="";
-    //cout<<"found depend\n";
+    
     while (true){
         pos = xmlContent.find('<', pos);
         endPos = xmlContent.find('>', pos);
         tag = xmlContent.substr(pos + 1, endPos - pos - 1);
-        //cout<<tag<<endl;
         if (tag=="/dependencies")
             break;
         if (tag=="dependency"){
@@ -65,33 +64,25 @@ vector<Dependency> parseXML(string xmlContent) {
             endPos = xmlContent.find("</groupId>", pos);
             tag = xmlContent.substr(pos + 9, endPos - pos - 9);
             dependency.groupId = tag;
-            //cout<<"group: "<<tag<<endl;
-
+            
             pos = xmlContent.find("<artifactId>", pos);
             endPos = xmlContent.find("</artifactId>", pos);
             tag = xmlContent.substr(pos + 12, endPos - pos - 12);
             dependency.artifactId = tag;
-            //cout<<"artifact: "<<tag<<endl;
                 
             int pred_pos = pos;
             pos = xmlContent.find("<version>", pos);
             if (pos<endPos+25 && pos>pred_pos){
                 endPos = xmlContent.find("</version>", pos);
                 tag = xmlContent.substr(pos + 9, endPos - pos - 9);
-                //cout<<"version: "<<tag<<endl;
                 dependency.version = tag;
             }
-            else {
-                //cout<<"gabella "<<pos<<" "<<endPos<<endl;
-                endPos=pred_pos;
-            }
-            //cout<<"version: "<<tag<<endl;
-            
+            else endPos=pred_pos;
+
             dependencies.push_back(dependency);
         }
         pos = endPos + 1;
     }
-    //cout<<"all\n";
     return dependencies;
 }
 
@@ -111,20 +102,19 @@ string constructPomUrl(Dependency dep,string pred_xml) {
             groupPath[i]='/';
     if (dep.artifactId[0]=='$')
         dep.artifactId = findReal(dep.artifactId,pred_xml);
-    if (dep.version[0]=='$'){
-        //cout<<"gabella\n";
+    if (dep.version[0]=='$')
         dep.version = findReal(dep.version.substr(2,dep.version.size()-3),pred_xml);
-        //cout<<dep.version<<endl;
-    }
-    //std::replace(groupPath.begin(), groupPath.end(), '.', '/');  // Заменяем точки на слеши
-
+    
     return baseUrl + groupPath + "/" + dep.artifactId + "/" + dep.version + "/" + dep.artifactId + "-" + dep.version + ".pom";
 }
 
 void buildDependencyGraph(Dependency rootDep, int depth, std::unordered_map<std::string, pair<vector<Dependency>,int>>& graph,string pred) {
     if (depth == 0) return;
     
-    string pomUrl = constructPomUrl(rootDep,pred);
+    string pomUrl;
+    if (depth!=stoi(graph_depth))
+        pomUrl = constructPomUrl(rootDep,pred);
+    else pomUrl = url;
     //cout<<"url: "<<pomUrl<<endl;
     string xmlContent = downloadFile(pomUrl);
     //cout<<"downloaded.\n";
@@ -137,11 +127,9 @@ void buildDependencyGraph(Dependency rootDep, int depth, std::unordered_map<std:
     for (const auto& dep : dependencies) {
         
         std::string depKey = dep.groupId + ":" + dep.artifactId + ":" + dep.version;
-        if (dep.version!="" && graph.find(depKey) == graph.end()) {
-            //graph[depKey] = dependencies;  // Добавляем зависимости в граф
-            // Для каждой зависимости рекурсивно строим граф, уменьшая глубину
+        if (dep.version!="" && graph.find(depKey) == graph.end())
             buildDependencyGraph(dep, depth - 1, graph,xmlContent);
-        }
+        
     }
 }
 
@@ -155,16 +143,10 @@ string generateMermaidCode(unordered_map<std::string, pair<vector<Dependency>,in
 
 void saveToFile(string content, string filename) {
     ofstream file(filename);
-    file << content;
-    file.close();
-    /*
-    if (file.is_open()) {
+    if (file.is_open())
         file << content;
-        file.close();
-    } else {
-        std::cerr << "Failed to open file for writing: " << filename << std::endl;
-    }
-    */
+    else cout<<"Error!\n";
+    file.close();
 }
 
 void generatePngFromMermaid(string inputFile, string outputFile) {
@@ -180,16 +162,38 @@ int main(int argc,char* argv[]) {
     name_pack = argv[2];
     graph_path = argv[3];
     graph_depth = argv[4];
-    git_url = argv[5];
-    cout<<"path of mermaid program: "<<mer_path<<endl;
+    repo_url = argv[5];
+
+    cout<<"path to mermaid program: "<<mer_path<<endl;
     cout<<"name of packet: "<<name_pack<<endl;
-    cout<<"path of dependencies graph: "<<graph_path<<endl;
+    cout<<"path to dependencies graph: "<<graph_path<<endl;
     cout<<"depth of graph: "<<graph_depth<<endl;
-    cout<<"url of git repo: "<<git_url<<endl;
+    cout<<"url of git repo: "<<repo_url<<endl;
     
-    std::string url = "https://raw.githubusercontent.com/apache/maven/master/pom.xml";
+    //https://repo.maven.apache.org/maven2/
+    //org.apache.maven:maven-parent:43
+
+    int pos1 = name_pack.find(':',0);
+    int endPos1 = name_pack.find(':',pos1+1);
+    string artifact = name_pack.substr(pos1+1,endPos1-pos1-1);
+    string version = name_pack.substr(endPos1+1,name_pack.size()-endPos1-1);
+    
+    int i = 0;
+    while (name_pack[i]!=':'){
+        if (name_pack[i]=='.')
+            name_pack[i]='/';
+        i++;
+    }
+    
+    while (i<name_pack.size()){
+        if (name_pack[i]==':')
+            name_pack[i]='/';
+        i++;
+    }
+    name_pack+='/'+artifact+'-'+version+".pom";
+
+    url = repo_url+name_pack;
     std::string pomXmlContent = downloadFile(url);
-    //cout<<pomXmlContent<<endl;
     
     Dependency rootDep;
     int pos = pomXmlContent.find("<parent>", pos);
@@ -205,7 +209,7 @@ int main(int argc,char* argv[]) {
     endPos = pomXmlContent.find("</artifactId>", pos);
     tag = pomXmlContent.substr(pos + 12, endPos - pos - 12);
     rootDep.artifactId = tag;
-            
+    
     pos = pomXmlContent.find("<version>", pos);
     endPos = pomXmlContent.find("</version>", pos);
     tag = pomXmlContent.substr(pos + 9, endPos - pos - 9);
@@ -213,12 +217,6 @@ int main(int argc,char* argv[]) {
         
     std::unordered_map<std::string, pair<vector<Dependency>,int>> dependencyGraph;
     buildDependencyGraph(rootDep, stoi(graph_depth), dependencyGraph,pomXmlContent);
-
-    /*
-    if (!pomXmlContent.empty())
-        parseXML(pomXmlContent);
-    */
-
     
     for (const auto& node : dependencyGraph) {
         std::cout << "Package: " << node.first << " "<<node.second.second<<endl;
@@ -229,8 +227,9 @@ int main(int argc,char* argv[]) {
     
     string mermaid_code = generateMermaidCode(dependencyGraph);
     cout<<mermaid_code<<endl;
-    std::string inputFile = "graph.mmd";
-    std::string outputFile = "graph.png";
+    
+    std::string inputFile = mer_path+"graph.mmd";
+    std::string outputFile = graph_path+"graph.png";
     saveToFile(mermaid_code, inputFile);
     generatePngFromMermaid(inputFile, outputFile);
     cout<<"png generated\n";
