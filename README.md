@@ -147,5 +147,5 @@ TEST(AddTest, HandlesPositiveInput_find2) {
 
 Запуск .exe файла программы:
 ```
-./my_pack.exe
+./my_pack.exe (ваш путь)/conf_upr/second/ org.apache.maven:maven-parent:43 (ваш путь)/conf_upr/second/ 1 https://repo.maven.apache.org/maven2/
 ```
