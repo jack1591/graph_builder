@@ -36,5 +36,18 @@ add_custom_command(TARGET my_pack POST_BUILD
         $<TARGET_FILE_DIR:my_pack>              # Папка с исполняемым файлом
 )
 
+# Подключаем GoogleTest
+include_directories(${CMAKE_SOURCE_DIR}/googtest)
+
+add_subdirectory(${CMAKE_SOURCE_DIR}/googtest)
+
+# Создаем тестовый исполняемый файл с GoogleTest
+add_executable(my_tests src/test_main.cpp)
+
+# Подключаем директории с заголовками и библиотеки CURL и TinyXML2 к тестам
+target_include_directories(my_tests PUBLIC ${CURL_INCLUDE_DIRS} ${TINYXML2_INCLUDE_DIRS})
+target_link_libraries(my_tests gtest gtest_main ${CURL_LIBRARIES} ${TINYXML2_LIBRARIES})
+
+target_compile_definitions(my_tests PRIVATE UNIT_TEST)  # Определяем UNIT_TEST для тестов
 # Включаем дополнительные флаги для диагностики
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")

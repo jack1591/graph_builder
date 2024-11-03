@@ -63,15 +63,70 @@ CMAKE_BINARY_DIR = C:\Users\jackt\conf_upr\second\build
 
 # The main recursive "all" target.
 all: CMakeFiles/my_pack.dir/all
+all: CMakeFiles/my_tests.dir/all
+all: googtest/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: googtest/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/my_pack.dir/clean
+clean: CMakeFiles/my_tests.dir/clean
+clean: googtest/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory googtest
+
+# Recursive "all" directory target.
+googtest/all: googtest/googlemock/all
+.PHONY : googtest/all
+
+# Recursive "preinstall" directory target.
+googtest/preinstall: googtest/googlemock/preinstall
+.PHONY : googtest/preinstall
+
+# Recursive "clean" directory target.
+googtest/clean: googtest/googlemock/clean
+.PHONY : googtest/clean
+
+#=============================================================================
+# Directory level rules for directory googtest/googlemock
+
+# Recursive "all" directory target.
+googtest/googlemock/all: googtest/googlemock/CMakeFiles/gmock.dir/all
+googtest/googlemock/all: googtest/googlemock/CMakeFiles/gmock_main.dir/all
+googtest/googlemock/all: googtest/googletest/all
+.PHONY : googtest/googlemock/all
+
+# Recursive "preinstall" directory target.
+googtest/googlemock/preinstall: googtest/googletest/preinstall
+.PHONY : googtest/googlemock/preinstall
+
+# Recursive "clean" directory target.
+googtest/googlemock/clean: googtest/googlemock/CMakeFiles/gmock.dir/clean
+googtest/googlemock/clean: googtest/googlemock/CMakeFiles/gmock_main.dir/clean
+googtest/googlemock/clean: googtest/googletest/clean
+.PHONY : googtest/googlemock/clean
+
+#=============================================================================
+# Directory level rules for directory googtest/googletest
+
+# Recursive "all" directory target.
+googtest/googletest/all: googtest/googletest/CMakeFiles/gtest.dir/all
+googtest/googletest/all: googtest/googletest/CMakeFiles/gtest_main.dir/all
+.PHONY : googtest/googletest/all
+
+# Recursive "preinstall" directory target.
+googtest/googletest/preinstall:
+.PHONY : googtest/googletest/preinstall
+
+# Recursive "clean" directory target.
+googtest/googletest/clean: googtest/googletest/CMakeFiles/gtest.dir/clean
+googtest/googletest/clean: googtest/googletest/CMakeFiles/gtest_main.dir/clean
+.PHONY : googtest/googletest/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/my_pack.dir
@@ -80,7 +135,7 @@ clean: CMakeFiles/my_pack.dir/clean
 CMakeFiles/my_pack.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_pack.dir\build.make CMakeFiles/my_pack.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_pack.dir\build.make CMakeFiles/my_pack.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\jackt\conf_upr\second\build\CMakeFiles --progress-num=1,2 "Built target my_pack"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\jackt\conf_upr\second\build\CMakeFiles --progress-num=9,10 "Built target my_pack"
 .PHONY : CMakeFiles/my_pack.dir/all
 
 # Build rule for subdir invocation for target.
@@ -98,6 +153,138 @@ my_pack: CMakeFiles/my_pack.dir/rule
 CMakeFiles/my_pack.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_pack.dir\build.make CMakeFiles/my_pack.dir/clean
 .PHONY : CMakeFiles/my_pack.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/my_tests.dir
+
+# All Build rule for target.
+CMakeFiles/my_tests.dir/all: googtest/googletest/CMakeFiles/gtest.dir/all
+CMakeFiles/my_tests.dir/all: googtest/googletest/CMakeFiles/gtest_main.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_tests.dir\build.make CMakeFiles/my_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_tests.dir\build.make CMakeFiles/my_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\jackt\conf_upr\second\build\CMakeFiles --progress-num=11,12 "Built target my_tests"
+.PHONY : CMakeFiles/my_tests.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/my_tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/my_tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 0
+.PHONY : CMakeFiles/my_tests.dir/rule
+
+# Convenience name for target.
+my_tests: CMakeFiles/my_tests.dir/rule
+.PHONY : my_tests
+
+# clean rule for target.
+CMakeFiles/my_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_tests.dir\build.make CMakeFiles/my_tests.dir/clean
+.PHONY : CMakeFiles/my_tests.dir/clean
+
+#=============================================================================
+# Target rules for target googtest/googlemock/CMakeFiles/gmock.dir
+
+# All Build rule for target.
+googtest/googlemock/CMakeFiles/gmock.dir/all: googtest/googletest/CMakeFiles/gtest.dir/all
+	$(MAKE) $(MAKESILENT) -f googtest\googlemock\CMakeFiles\gmock.dir\build.make googtest/googlemock/CMakeFiles/gmock.dir/depend
+	$(MAKE) $(MAKESILENT) -f googtest\googlemock\CMakeFiles\gmock.dir\build.make googtest/googlemock/CMakeFiles/gmock.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\jackt\conf_upr\second\build\CMakeFiles --progress-num=1,2 "Built target gmock"
+.PHONY : googtest/googlemock/CMakeFiles/gmock.dir/all
+
+# Build rule for subdir invocation for target.
+googtest/googlemock/CMakeFiles/gmock.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 googtest/googlemock/CMakeFiles/gmock.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 0
+.PHONY : googtest/googlemock/CMakeFiles/gmock.dir/rule
+
+# Convenience name for target.
+gmock: googtest/googlemock/CMakeFiles/gmock.dir/rule
+.PHONY : gmock
+
+# clean rule for target.
+googtest/googlemock/CMakeFiles/gmock.dir/clean:
+	$(MAKE) $(MAKESILENT) -f googtest\googlemock\CMakeFiles\gmock.dir\build.make googtest/googlemock/CMakeFiles/gmock.dir/clean
+.PHONY : googtest/googlemock/CMakeFiles/gmock.dir/clean
+
+#=============================================================================
+# Target rules for target googtest/googlemock/CMakeFiles/gmock_main.dir
+
+# All Build rule for target.
+googtest/googlemock/CMakeFiles/gmock_main.dir/all: googtest/googletest/CMakeFiles/gtest.dir/all
+googtest/googlemock/CMakeFiles/gmock_main.dir/all: googtest/googlemock/CMakeFiles/gmock.dir/all
+	$(MAKE) $(MAKESILENT) -f googtest\googlemock\CMakeFiles\gmock_main.dir\build.make googtest/googlemock/CMakeFiles/gmock_main.dir/depend
+	$(MAKE) $(MAKESILENT) -f googtest\googlemock\CMakeFiles\gmock_main.dir\build.make googtest/googlemock/CMakeFiles/gmock_main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\jackt\conf_upr\second\build\CMakeFiles --progress-num=3,4 "Built target gmock_main"
+.PHONY : googtest/googlemock/CMakeFiles/gmock_main.dir/all
+
+# Build rule for subdir invocation for target.
+googtest/googlemock/CMakeFiles/gmock_main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 googtest/googlemock/CMakeFiles/gmock_main.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 0
+.PHONY : googtest/googlemock/CMakeFiles/gmock_main.dir/rule
+
+# Convenience name for target.
+gmock_main: googtest/googlemock/CMakeFiles/gmock_main.dir/rule
+.PHONY : gmock_main
+
+# clean rule for target.
+googtest/googlemock/CMakeFiles/gmock_main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f googtest\googlemock\CMakeFiles\gmock_main.dir\build.make googtest/googlemock/CMakeFiles/gmock_main.dir/clean
+.PHONY : googtest/googlemock/CMakeFiles/gmock_main.dir/clean
+
+#=============================================================================
+# Target rules for target googtest/googletest/CMakeFiles/gtest.dir
+
+# All Build rule for target.
+googtest/googletest/CMakeFiles/gtest.dir/all:
+	$(MAKE) $(MAKESILENT) -f googtest\googletest\CMakeFiles\gtest.dir\build.make googtest/googletest/CMakeFiles/gtest.dir/depend
+	$(MAKE) $(MAKESILENT) -f googtest\googletest\CMakeFiles\gtest.dir\build.make googtest/googletest/CMakeFiles/gtest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\jackt\conf_upr\second\build\CMakeFiles --progress-num=5,6 "Built target gtest"
+.PHONY : googtest/googletest/CMakeFiles/gtest.dir/all
+
+# Build rule for subdir invocation for target.
+googtest/googletest/CMakeFiles/gtest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 googtest/googletest/CMakeFiles/gtest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 0
+.PHONY : googtest/googletest/CMakeFiles/gtest.dir/rule
+
+# Convenience name for target.
+gtest: googtest/googletest/CMakeFiles/gtest.dir/rule
+.PHONY : gtest
+
+# clean rule for target.
+googtest/googletest/CMakeFiles/gtest.dir/clean:
+	$(MAKE) $(MAKESILENT) -f googtest\googletest\CMakeFiles\gtest.dir\build.make googtest/googletest/CMakeFiles/gtest.dir/clean
+.PHONY : googtest/googletest/CMakeFiles/gtest.dir/clean
+
+#=============================================================================
+# Target rules for target googtest/googletest/CMakeFiles/gtest_main.dir
+
+# All Build rule for target.
+googtest/googletest/CMakeFiles/gtest_main.dir/all: googtest/googletest/CMakeFiles/gtest.dir/all
+	$(MAKE) $(MAKESILENT) -f googtest\googletest\CMakeFiles\gtest_main.dir\build.make googtest/googletest/CMakeFiles/gtest_main.dir/depend
+	$(MAKE) $(MAKESILENT) -f googtest\googletest\CMakeFiles\gtest_main.dir\build.make googtest/googletest/CMakeFiles/gtest_main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\jackt\conf_upr\second\build\CMakeFiles --progress-num=7,8 "Built target gtest_main"
+.PHONY : googtest/googletest/CMakeFiles/gtest_main.dir/all
+
+# Build rule for subdir invocation for target.
+googtest/googletest/CMakeFiles/gtest_main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 googtest/googletest/CMakeFiles/gtest_main.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jackt\conf_upr\second\build\CMakeFiles 0
+.PHONY : googtest/googletest/CMakeFiles/gtest_main.dir/rule
+
+# Convenience name for target.
+gtest_main: googtest/googletest/CMakeFiles/gtest_main.dir/rule
+.PHONY : gtest_main
+
+# clean rule for target.
+googtest/googletest/CMakeFiles/gtest_main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f googtest\googletest\CMakeFiles\gtest_main.dir\build.make googtest/googletest/CMakeFiles/gtest_main.dir/clean
+.PHONY : googtest/googletest/CMakeFiles/gtest_main.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -1,0 +1,1 @@
+-IC:/Users/jackt/conf_upr/second/googtest -IC:/Users/jackt/conf_upr/second/include -IC:/Users/jackt/conf_upr/second -isystem C:/Users/jackt/conf_upr/second/googtest/googletest/include -isystem C:/Users/jackt/conf_upr/second/googtest/googletest

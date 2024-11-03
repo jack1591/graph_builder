@@ -7,12 +7,15 @@ set(CMAKE_DEPENDS_GENERATOR "MinGW Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+  "C:/Program Files/CMake/share/cmake-3.30/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeCXXInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake"
+  "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeDependentOption.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake"
+  "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakePackageConfigHelpers.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake"
@@ -20,6 +23,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/Compiler/GNU.cmake"
+  "C:/Program Files/CMake/share/cmake-3.30/Modules/GNUInstallDirs.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX-ABI.cmake"
@@ -29,11 +33,21 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows-windres.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake"
   "C:/Program Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake"
+  "C:/Program Files/CMake/share/cmake-3.30/Modules/WriteBasicConfigVersionFile.cmake"
   "C:/Users/jackt/conf_upr/second/CMakeLists.txt"
   "CMakeFiles/3.30.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.30.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.30.3/CMakeRCCompiler.cmake"
   "CMakeFiles/3.30.3/CMakeSystem.cmake"
+  "C:/Users/jackt/conf_upr/second/googtest/CMakeLists.txt"
+  "C:/Users/jackt/conf_upr/second/googtest/googlemock/CMakeLists.txt"
+  "C:/Users/jackt/conf_upr/second/googtest/googlemock/cmake/gmock.pc.in"
+  "C:/Users/jackt/conf_upr/second/googtest/googlemock/cmake/gmock_main.pc.in"
+  "C:/Users/jackt/conf_upr/second/googtest/googletest/CMakeLists.txt"
+  "C:/Users/jackt/conf_upr/second/googtest/googletest/cmake/Config.cmake.in"
+  "C:/Users/jackt/conf_upr/second/googtest/googletest/cmake/gtest.pc.in"
+  "C:/Users/jackt/conf_upr/second/googtest/googletest/cmake/gtest_main.pc.in"
+  "C:/Users/jackt/conf_upr/second/googtest/googletest/cmake/internal_utils.cmake"
   )
 
 # The corresponding makefile is:
@@ -45,9 +59,23 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "googtest/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "googtest/googletest/generated/gmock.pc"
+  "googtest/googletest/generated/gmock_main.pc"
+  "googtest/googlemock/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "googtest/googletest/generated/GTestConfigVersion.cmake"
+  "googtest/googletest/generated/GTestConfig.cmake"
+  "googtest/googletest/generated/gtest.pc"
+  "googtest/googletest/generated/gtest_main.pc"
+  "googtest/googletest/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/my_pack.dir/DependInfo.cmake"
+  "CMakeFiles/my_tests.dir/DependInfo.cmake"
+  "googtest/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake"
+  "googtest/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake"
+  "googtest/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "googtest/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
   )

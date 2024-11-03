@@ -1,0 +1,1 @@
+-isystem C:/Users/jackt/conf_upr/second/../googtest -isystem C:/Users/jackt/conf_upr/googtest/googlemock/include -isystem C:/Users/jackt/conf_upr/googtest/googlemock -isystem C:/Users/jackt/conf_upr/googtest/googletest/include -isystem C:/Users/jackt/conf_upr/googtest/googletest

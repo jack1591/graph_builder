@@ -157,6 +157,11 @@ void generatePngFromMermaid(string inputFile, string outputFile) {
     }
 }
 
+int add(int a,int b){
+    return a+b;
+}
+
+#ifndef UNIT_TEST
 int main(int argc,char* argv[]) {
     mer_path = argv[1];
     name_pack = argv[2];
@@ -235,3 +240,4 @@ int main(int argc,char* argv[]) {
     cout<<"png generated\n";
     return 0;
 }
+#endif
