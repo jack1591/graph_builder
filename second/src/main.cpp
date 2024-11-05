@@ -10,14 +10,14 @@ using namespace std;
 string repo_url, name_pack, graph_depth, graph_path, mer_path,url;
 
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
-    ((std::string*)userp)->append((char*)contents, size * nmemb);
+    ((string*)userp)->append((char*)contents, size * nmemb);
     return size * nmemb;
 }
 
 string downloadFile(string url) {
     CURL* curl;
     CURLcode res;
-    std::string readBuffer;
+    string readBuffer;
 
     curl = curl_easy_init();
     if (curl) {
@@ -29,10 +29,11 @@ string downloadFile(string url) {
     }
     return readBuffer;
 }
+
 struct Dependency {
-    std::string groupId;
-    std::string artifactId;
-    std::string version;
+    string groupId;
+    string artifactId;
+    string version;
 };
 
 vector<Dependency> parseXML(string xmlContent) {
@@ -40,9 +41,9 @@ vector<Dependency> parseXML(string xmlContent) {
     size_t pos = 0;
     size_t endPos = 0;
     string tag="";
-    while ((pos = xmlContent.find('<', pos)) != std::string::npos) {
+    while ((pos = xmlContent.find('<', pos)) != string::npos) {
         endPos = xmlContent.find('>', pos);
-        if (endPos == std::string::npos) break;
+        if (endPos == string::npos) break;
 
         tag = xmlContent.substr(pos + 1, endPos - pos - 1);
         if (tag.find("dependencies")!=string::npos)
@@ -108,8 +109,8 @@ string constructPomUrl(Dependency dep,string pred_xml) {
     return baseUrl + groupPath + "/" + dep.artifactId + "/" + dep.version + "/" + dep.artifactId + "-" + dep.version + ".pom";
 }
 
-void buildDependencyGraph(Dependency rootDep, int depth, std::unordered_map<std::string, pair<vector<Dependency>,int>>& graph,string pred) {
-    if (depth == 0) return;
+void buildDependencyGraph(Dependency rootDep, int depth, unordered_map<string, pair<vector<Dependency>,int>>& graph,string pred) {
+    if (depth <= 0) return;
     
     string pomUrl;
     if (depth!=stoi(graph_depth))
@@ -121,19 +122,21 @@ void buildDependencyGraph(Dependency rootDep, int depth, std::unordered_map<std:
     vector<Dependency> dependencies = parseXML(xmlContent);
     //cout<<"parsed.\n";
     
-    std::string depKey = rootDep.groupId + ":" + rootDep.artifactId + ":" + rootDep.version;
+    string depKey = rootDep.groupId + ":" + rootDep.artifactId + ":" + rootDep.version;
     graph[depKey] = make_pair(dependencies,depth);
 
     for (const auto& dep : dependencies) {
         
-        std::string depKey = dep.groupId + ":" + dep.artifactId + ":" + dep.version;
+        string depKey = dep.groupId + ":" + dep.artifactId + ":" + dep.version;
         if (dep.version!="" && graph.find(depKey) == graph.end())
             buildDependencyGraph(dep, depth - 1, graph,xmlContent);
         
     }
 }
 
-string generateMermaidCode(unordered_map<std::string, pair<vector<Dependency>,int>>& graph){
+string generateMermaidCode(unordered_map<string, pair<vector<Dependency>,int>>& graph){
+    if (graph.size()==0)
+        return "The graph is empty!";
     string mermaid = "graph TD\n";
     for (auto versh:graph)
         for (auto c:versh.second.first)
@@ -150,17 +153,21 @@ void saveToFile(string content, string filename) {
 }
 
 void generatePngFromMermaid(string inputFile, string outputFile) {
-    std::string command = "mmdc -i " + inputFile + " -o " + outputFile;
+    string command = "mmdc -i " + inputFile + " -o " + outputFile;
     int result = system(command.c_str());
     if (result != 0) {
-        std::cerr << "Failed to generate PNG from Mermaid" << std::endl;
+        cout << "Failed to generate PNG from Mermaid" << endl;
     }
+    else cout<<"png generated\n";
 }
 
-int add(int a,int b){
-    return a+b;
+void initialization(string mer_p,string name_p, string graph_p, string graph_d, string repo_u){
+    mer_path = mer_p;
+    name_pack = name_p;
+    graph_path = graph_p;
+    graph_depth = graph_d;
+    repo_url = repo_u;
 }
-
 #ifndef UNIT_TEST
 int main(int argc,char* argv[]) {
     mer_path = argv[1];
@@ -168,6 +175,8 @@ int main(int argc,char* argv[]) {
     graph_path = argv[3];
     graph_depth = argv[4];
     repo_url = argv[5];
+
+    initialization(argv[1],argv[2],argv[3],argv[4],argv[5]);
 
     cout<<"path to mermaid program: "<<mer_path<<endl;
     cout<<"name of packet: "<<name_pack<<endl;
@@ -180,6 +189,7 @@ int main(int argc,char* argv[]) {
 
     int pos1 = name_pack.find(':',0);
     int endPos1 = name_pack.find(':',pos1+1);
+    string group = name_pack.substr(0,pos1-1);
     string artifact = name_pack.substr(pos1+1,endPos1-pos1-1);
     string version = name_pack.substr(endPos1+1,name_pack.size()-endPos1-1);
     
@@ -198,9 +208,11 @@ int main(int argc,char* argv[]) {
     name_pack+='/'+artifact+'-'+version+".pom";
 
     url = repo_url+name_pack;
-    std::string pomXmlContent = downloadFile(url);
+    //cout<<"url: "<<url<<endl;
+    string pomXmlContent = downloadFile(url);
     
     Dependency rootDep;
+    /*
     int pos = pomXmlContent.find("<parent>", pos);
     int endPos = pomXmlContent.find("</parent>", pos);
     string tag = pomXmlContent.substr(pos + 1, endPos - pos - 1);
@@ -219,25 +231,32 @@ int main(int argc,char* argv[]) {
     endPos = pomXmlContent.find("</version>", pos);
     tag = pomXmlContent.substr(pos + 9, endPos - pos - 9);
     rootDep.version = tag;
-        
-    std::unordered_map<std::string, pair<vector<Dependency>,int>> dependencyGraph;
+    */
+    rootDep.groupId = group;
+    rootDep.artifactId = artifact;
+    rootDep.version = version;
+
+    cout<<rootDep.groupId+":"+rootDep.artifactId+":"+rootDep.version<<endl;    
+    
+    unordered_map<string, pair<vector<Dependency>,int>> dependencyGraph;
     buildDependencyGraph(rootDep, stoi(graph_depth), dependencyGraph,pomXmlContent);
     
+    /*
     for (const auto& node : dependencyGraph) {
-        std::cout << "Package: " << node.first << " "<<node.second.second<<endl;
+        cout << "Package: " << node.first << " "<<node.second.second<<endl;
         for (const auto& dep : node.second.first) {
-            std::cout << "  Dependency: " << dep.groupId << ":" << dep.artifactId << ":" << dep.version << std::endl;
+            cout << "  Dependency: " << dep.groupId << ":" << dep.artifactId << ":" << dep.version << endl;
         }
     }
-    
+    */
+
     string mermaid_code = generateMermaidCode(dependencyGraph);
     cout<<mermaid_code<<endl;
     
-    std::string inputFile = mer_path+"graph.mmd";
-    std::string outputFile = graph_path+"graph.png";
+    string inputFile = mer_path+"graph.mmd";
+    string outputFile = graph_path+"graph.png";
     saveToFile(mermaid_code, inputFile);
     generatePngFromMermaid(inputFile, outputFile);
-    cout<<"png generated\n";
     return 0;
 }
 #endif
