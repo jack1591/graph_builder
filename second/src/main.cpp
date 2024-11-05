@@ -14,6 +14,7 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
     return size * nmemb;
 }
 
+//загрузка содержимого файла по ссылке
 string downloadFile(string url) {
     CURL* curl;
     CURLcode res;
@@ -36,6 +37,7 @@ struct Dependency {
     string version;
 };
 
+//поиск зависимостей в xml файле
 vector<Dependency> parseXML(string xmlContent) {
     vector<Dependency> dependencies;
     size_t pos = 0;
@@ -87,6 +89,7 @@ vector<Dependency> parseXML(string xmlContent) {
     return dependencies;
 }
 
+//поиск версии в файле(когда записана переменная)
 string findReal(string str,string tek_xml){
     string s = str+">";
     int pos = tek_xml.find("<"+s, 0);
@@ -95,6 +98,7 @@ string findReal(string str,string tek_xml){
     return tag;
 }
 
+//формирование ссылки через ссылку на репозиторий и название пакета
 string constructPomUrl(Dependency dep,string pred_xml) {
     string baseUrl = "https://repo.maven.apache.org/maven2/";
     string groupPath = dep.groupId;
@@ -109,6 +113,7 @@ string constructPomUrl(Dependency dep,string pred_xml) {
     return baseUrl + groupPath + "/" + dep.artifactId + "/" + dep.version + "/" + dep.artifactId + "-" + dep.version + ".pom";
 }
 
+//построение графа
 void buildDependencyGraph(Dependency rootDep, int depth, unordered_map<string, pair<vector<Dependency>,int>>& graph,string pred) {
     if (depth <= 0) return;
     
@@ -134,6 +139,7 @@ void buildDependencyGraph(Dependency rootDep, int depth, unordered_map<string, p
     }
 }
 
+//формирование mermaid кода для графа
 string generateMermaidCode(unordered_map<string, pair<vector<Dependency>,int>>& graph){
     if (graph.size()==0)
         return "The graph is empty!";
@@ -144,6 +150,7 @@ string generateMermaidCode(unordered_map<string, pair<vector<Dependency>,int>>& 
     return mermaid;
 }
 
+// сохранение mermaid кода в файл mmd
 void saveToFile(string content, string filename) {
     ofstream file(filename);
     if (file.is_open())
@@ -152,6 +159,7 @@ void saveToFile(string content, string filename) {
     file.close();
 }
 
+//формирование png из mermaid кода
 void generatePngFromMermaid(string inputFile, string outputFile) {
     string command = "mmdc -i " + inputFile + " -o " + outputFile;
     int result = system(command.c_str());
@@ -161,6 +169,7 @@ void generatePngFromMermaid(string inputFile, string outputFile) {
     else cout<<"png generated\n";
 }
 
+//чтение ключей
 void initialization(string mer_p,string name_p, string graph_p, string graph_d, string repo_u){
     mer_path = mer_p;
     name_pack = name_p;
@@ -168,6 +177,7 @@ void initialization(string mer_p,string name_p, string graph_p, string graph_d, 
     graph_depth = graph_d;
     repo_url = repo_u;
 }
+
 #ifndef UNIT_TEST
 int main(int argc,char* argv[]) {
     mer_path = argv[1];

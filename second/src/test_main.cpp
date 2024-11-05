@@ -10,6 +10,7 @@
 #include <unordered_map>
 using namespace std;
 
+//глубина графа меньше либо равно ноля
 TEST(AddTest, HandlesPositiveInput_1) {
     initialization("C:/Users/jackt/conf_upr/second/", "org.apache.maven:maven-parent:43" ,"C:/Users/jackt/conf_upr/second/", "-1", "https://repo.maven.apache.org/maven2/");
     url = "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/43/maven-parent-43.pom";
@@ -26,6 +27,7 @@ TEST(AddTest, HandlesPositiveInput_1) {
     EXPECT_EQ(mermaid_code,"The graph is empty!");
 }
 
+//проверка содержимого xml файла
 TEST(AddTest, HandlesPositiveInput_2) {
     initialization("C:/Users/jackt/conf_upr/second/", "org.codehaus.plexus:plexus-utils:4.0.1" ,"C:/Users/jackt/conf_upr/second/", "1", "https://repo.maven.apache.org/maven2/");
     url = "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.1/plexus-utils-4.0.1.pom";
@@ -38,6 +40,7 @@ TEST(AddTest, HandlesPositiveInput_2) {
     EXPECT_EQ(tag,example);
 }
 
+//проверка mermaid кода для глубины 1
 TEST(AddTest, HandlesPositiveInput_3) {
     initialization("C:/Users/jackt/conf_upr/second/", "org.apache.maven:maven-parent:43" ,"C:/Users/jackt/conf_upr/second/", "1", "https://repo.maven.apache.org/maven2/");
     url = "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/43/maven-parent-43.pom";
@@ -56,6 +59,7 @@ TEST(AddTest, HandlesPositiveInput_3) {
     EXPECT_EQ(mermaid_code,example);
 }
 
+//проверка mermaid кода для глубины 1
 TEST(AddTest, HandlesPositiveInput_4) {
     initialization("C:/Users/jackt/conf_upr/second/", "org.apache.maven:maven-parent:43" ,"C:/Users/jackt/conf_upr/second/", "2", "https://repo.maven.apache.org/maven2/");
     url = "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/43/maven-parent-43.pom";
