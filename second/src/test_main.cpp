@@ -13,12 +13,12 @@ using namespace std;
 
 //глубина графа меньше либо равно ноля
 TEST(AddTest, HandlesPositiveInput_1) {
-    initialization("C:/Users/jackt/conf_upr/second/mermaid/", "org.apache.maven:maven-parent:43" ,"C:/Users/jackt/conf_upr/second/", "-1", "https://repo.maven.apache.org/maven2/");
+    initialization("../mermaid/", "org.apache.maven:maven-parent:43" ,"../", "-1", "https://repo.maven.apache.org/maven2/");
     url = "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/43/maven-parent-43.pom";
     string pomXmlContent = downloadFile(url);
     Dependency rootDep;
     
-    rootDep.groupId = "org.apache.mave";
+    rootDep.groupId = "org.apache.maven";
     rootDep.artifactId = "maven-parent";
     rootDep.version = "43";
     unordered_map<string, pair<vector<Dependency>,int>> dependencyGraph;
@@ -29,7 +29,7 @@ TEST(AddTest, HandlesPositiveInput_1) {
 
 //проверка содержимого xml файла
 TEST(AddTest, HandlesPositiveInput_2) {
-    initialization("C:/Users/jackt/conf_upr/second/mermaid/", "org.codehaus.plexus:plexus-utils:4.0.1" ,"C:/Users/jackt/conf_upr/second/", "1", "https://repo.maven.apache.org/maven2/");
+    initialization("../mermaid/", "org.codehaus.plexus:plexus-utils:4.0.1" ,"../", "1", "https://repo.maven.apache.org/maven2/");
     url = "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.1/plexus-utils-4.0.1.pom";
     string pomXmlContent = downloadFile(url);
     int pos = pomXmlContent.find("<parent>", pos);
@@ -42,7 +42,7 @@ TEST(AddTest, HandlesPositiveInput_2) {
 
 //проверка mermaid кода для глубины 1
 TEST(AddTest, HandlesPositiveInput_3) {
-    initialization("C:/Users/jackt/conf_upr/second/mermaid/", "org.apache.maven:maven-parent:43" ,"C:/Users/jackt/conf_upr/second/", "1", "https://repo.maven.apache.org/maven2/");
+    initialization("../mermaid/", "org.apache.maven:maven-parent:43" ,"../", "1", "https://repo.maven.apache.org/maven2/");
     url = "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/43/maven-parent-43.pom";
     string pomXmlContent = downloadFile(url);
     Dependency rootDep;
@@ -60,7 +60,7 @@ TEST(AddTest, HandlesPositiveInput_3) {
 
 //проверка mermaid кода для глубины 2
 TEST(AddTest, HandlesPositiveInput_4) {
-    initialization("C:/Users/jackt/conf_upr/second/mermaid/", "org.apache.maven:maven-parent:43" ,"C:/Users/jackt/conf_upr/second/", "2", "https://repo.maven.apache.org/maven2/");
+    initialization("../mermaid/", "org.apache.maven:maven-parent:43" ,"../", "2", "https://repo.maven.apache.org/maven2/");
     url = "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/43/maven-parent-43.pom";
     string pomXmlContent = downloadFile(url);
     Dependency rootDep;
