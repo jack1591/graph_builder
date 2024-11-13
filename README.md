@@ -161,6 +161,9 @@ TEST(AddTest, HandlesPositiveInput_find2) {
 ### generatePngFromMermaid
 Сгенерировать png по содержимому файла mmd
 
+### Построенный граф зависимостей пакета org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M3 с глубиной 1
+![graph](https://github.com/user-attachments/assets/9ed3de94-07dd-4368-a0b8-d44bd8c69172)  
+
 Запуск .exe файла программы:
 ```
 ./my_pack.exe (ваш путь до mmdc) org.apache.maven:maven-parent:43 (ваш путь)/conf_upr/second/ 1 https://repo.maven.apache.org/maven2/
