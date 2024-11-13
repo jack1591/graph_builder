@@ -261,3 +261,6 @@ TEST(AddTest, HandlesPositiveInput_4) {
 }
 
 ```
+
+### Результат работы тестов
+![tests](https://github.com/user-attachments/assets/0bc5be49-6516-49c7-b7d5-ed0087749e9e)
