@@ -143,11 +143,27 @@ TEST(AddTest, HandlesPositiveInput_find2) {
 • Максимальная глубина анализа зависимостей.  
 • URL-адрес репозитория.  
 
-Все функции визуализатора зависимостей должны быть покрыты тестами.
+Все функции визуализатора зависимостей должны быть покрыты тестами.  
+
+## Функции визуализатора  
+### downloadFile
+С помощью библиотеки curl скопировать содержимое xml файла текущего пакета
+
+### constructPomUrl
+Сделать ссылку на xml файл пакета по его названию  
+
+### buildDependencyGraph
+Построить графа зависимостей 
+
+### generateMermaidCode
+Создать кода mermaid
+
+### generatePngFromMermaid
+Сгенерировать png по содержимому файла mmd
 
 Запуск .exe файла программы:
 ```
-./my_pack.exe (ваш путь)/conf_upr/second/ org.apache.maven:maven-parent:43 (ваш путь)/conf_upr/second/ 1 https://repo.maven.apache.org/maven2/
+./my_pack.exe (ваш путь до mmdc) org.apache.maven:maven-parent:43 (ваш путь)/conf_upr/second/ 1 https://repo.maven.apache.org/maven2/
 ```
 Запуск .exe файла с тестами:
 ```
