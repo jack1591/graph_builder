@@ -20,12 +20,12 @@ string downloadFile(string url) {
     CURLcode res;
     string readBuffer;
 
-    curl = curl_easy_init();
+    curl = curl_easy_init(); //инициализация объекта
     if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-        res = curl_easy_perform(curl);
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str()); // откуда загрузить данные
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback); //функция обратной записи
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer); // записываем данные в readBuffer
+        res = curl_easy_perform(curl); // выполняем запрос к серверу
         curl_easy_cleanup(curl);
     }
     return readBuffer;
@@ -121,11 +121,8 @@ void buildDependencyGraph(Dependency rootDep, int depth, unordered_map<string, p
     if (depth!=stoi(graph_depth))
         pomUrl = constructPomUrl(rootDep,pred);
     else pomUrl = url;
-    //cout<<"url: "<<pomUrl<<endl;
     string xmlContent = downloadFile(pomUrl);
-    //cout<<"downloaded.\n";
     vector<Dependency> dependencies = parseXML(xmlContent);
-    //cout<<"parsed.\n";
     
     string depKey = rootDep.groupId + ":" + rootDep.artifactId + ":" + rootDep.version;
     graph[depKey] = make_pair(dependencies,depth);
@@ -146,7 +143,7 @@ string generateMermaidCode(unordered_map<string, pair<vector<Dependency>,int>>& 
     string mermaid = "graph TD\n";
     for (auto versh:graph)
         for (auto c:versh.second.first)
-            mermaid+="    " + versh.first + " --> " + c.groupId + ":" + c.artifactId + ":" + c.version + "\n";
+            mermaid+="    " + versh.first + " --> " + c.artifactId + "\n";//c.groupId + ":" + c.artifactId + ":" + c.version + "\n";
     return mermaid;
 }
 
@@ -161,7 +158,9 @@ void saveToFile(string content, string filename) {
 
 //формирование png из mermaid кода
 void generatePngFromMermaid(string inputFile, string outputFile) {
-    string command = "mmdc -i " + inputFile + " -o " + outputFile;
+    
+    string command =  "cd " + mer_path + "&& mmdc.cmd -i " + inputFile + " -o " + outputFile;
+    cout<<command<<endl;
     int result = system(command.c_str());
     if (result != 0) {
         cout << "Failed to generate PNG from Mermaid" << endl;
@@ -185,18 +184,15 @@ int main(int argc,char* argv[]) {
     graph_path = argv[3];
     graph_depth = argv[4];
     repo_url = argv[5];
-
     initialization(argv[1],argv[2],argv[3],argv[4],argv[5]);
 
     cout<<"path to mermaid program: "<<mer_path<<endl;
     cout<<"name of packet: "<<name_pack<<endl;
     cout<<"path to dependencies graph: "<<graph_path<<endl;
     cout<<"depth of graph: "<<graph_depth<<endl;
-    cout<<"url of git repo: "<<repo_url<<endl;
+    cout<<"url of repo: "<<repo_url<<endl;
     
-    //https://repo.maven.apache.org/maven2/
-    //org.apache.maven:maven-parent:43
-
+    
     int pos1 = name_pack.find(':',0);
     int endPos1 = name_pack.find(':',pos1+1);
     string group = name_pack.substr(0,pos1-1);
@@ -218,30 +214,12 @@ int main(int argc,char* argv[]) {
     name_pack+='/'+artifact+'-'+version+".pom";
 
     url = repo_url+name_pack;
-    //cout<<"url: "<<url<<endl;
+    
+    cout<<"url: "<<url<<endl;
     string pomXmlContent = downloadFile(url);
     
     Dependency rootDep;
-    /*
-    int pos = pomXmlContent.find("<parent>", pos);
-    int endPos = pomXmlContent.find("</parent>", pos);
-    string tag = pomXmlContent.substr(pos + 1, endPos - pos - 1);
     
-    pos = pomXmlContent.find("<groupId>", pos);
-    endPos = pomXmlContent.find("</groupId>", pos);
-    tag = pomXmlContent.substr(pos + 9, endPos - pos - 9);
-    rootDep.groupId = tag;
-    
-    pos = pomXmlContent.find("<artifactId>", pos);
-    endPos = pomXmlContent.find("</artifactId>", pos);
-    tag = pomXmlContent.substr(pos + 12, endPos - pos - 12);
-    rootDep.artifactId = tag;
-    
-    pos = pomXmlContent.find("<version>", pos);
-    endPos = pomXmlContent.find("</version>", pos);
-    tag = pomXmlContent.substr(pos + 9, endPos - pos - 9);
-    rootDep.version = tag;
-    */
     rootDep.groupId = group;
     rootDep.artifactId = artifact;
     rootDep.version = version;
@@ -250,20 +228,11 @@ int main(int argc,char* argv[]) {
     
     unordered_map<string, pair<vector<Dependency>,int>> dependencyGraph;
     buildDependencyGraph(rootDep, stoi(graph_depth), dependencyGraph,pomXmlContent);
-    
-    /*
-    for (const auto& node : dependencyGraph) {
-        cout << "Package: " << node.first << " "<<node.second.second<<endl;
-        for (const auto& dep : node.second.first) {
-            cout << "  Dependency: " << dep.groupId << ":" << dep.artifactId << ":" << dep.version << endl;
-        }
-    }
-    */
 
     string mermaid_code = generateMermaidCode(dependencyGraph);
     cout<<mermaid_code<<endl;
     
-    string inputFile = mer_path+"graph.mmd";
+    string inputFile = graph_path+"graph.mmd";
     string outputFile = graph_path+"graph.png";
     saveToFile(mermaid_code, inputFile);
     generatePngFromMermaid(inputFile, outputFile);
